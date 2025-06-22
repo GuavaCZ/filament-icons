@@ -23,28 +23,12 @@ class FilamentIconsServiceProvider extends PackageServiceProvider
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
         ;
-
-        //            ->hasInstallCommand(function (InstallCommand $command) {
-        //                $command
-        //                    ->publishConfigFile()
-        //                    ->publishMigrations()
-        //                    ->askToRunMigrations()
-        //                    ->askToStarRepoOnGitHub('guava/filament-icons');
-        //            });
     }
 
     public function packageRegistered(): void {}
 
     public function packageBooted(): void
     {
-        // Handle Stubs
-        //        if (app()->runningInConsole()) {
-        //            foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
-        //                $this->publishes([
-        //                    $file->getRealPath() => base_path("stubs/filament-icons/{$file->getFilename()}"),
-        //                ], 'filament-icons-stubs');
-        //            }
-        //        }
     }
 
     /**

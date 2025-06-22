@@ -5,17 +5,20 @@ namespace Guava\FilamentIcons\Commands;
 use BladeUI\Icons\Factory as IconFactory;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Stringable;
 use SplFileInfo;
 
+use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\error;
 use function Laravel\Prompts\multiselect;
+use function Laravel\Prompts\spin;
 use function Laravel\Prompts\text;
 
 class GenerateIconEnumClassCommand extends GeneratorCommand
 {
     public $signature = 'filament-icons:generate';
-
 
     protected IconFactory $iconFactory;
 
@@ -27,7 +30,6 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
     public $description = 'My command';
 
     protected array $generationData = [];
-
 
     public function __construct(Filesystem $files, IconFactory $iconFactory)
     {
@@ -43,6 +45,16 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
         // Skip built in sets from filament
         unset($sets['heroicons']);
         unset($sets['filament']);
+
+        if (empty($sets)) {
+            error('There are no available icon sets to generate Enum classes for.');
+
+            if (confirm('Would you like to install an icon package?')) {
+                app(InstallIconSetCommand::class)->handle();
+            }
+
+            return 1;
+        }
 
         $selectedSetIds = multiselect(
             label: 'Select the icon sets for which you would like to generate an enum class',
@@ -76,14 +88,6 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
             $set = $sets[$setId];
             $prefix = data_get($set, 'prefix');
             $paths = data_get($set, 'paths') ?? [];
-            //            $defaultFqcn = str('App\\Enums\\Icons\\')->append(str($setId)->pascal())->toString();
-            //            $fqcn = text(
-            //                label: 'Enter the FQCN (Fully-Qualified Class Name) for the icon set [' . $setId . ']',
-            //                placeholder: $defaultFqcn . ' (Press enter for default)',
-            //            );
-            //            if (empty($fqcn)) {
-            //                $fqcn = $defaultFqcn;
-            //            }
 
             $icons = collect();
             foreach ($paths as $path) {
@@ -114,8 +118,16 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
                 ;
 
                 data_set($this->generationData, 'current', $setId);
-                parent::handle();
-                $this->replaceCustomPlaceholders($cases, $prefix);
+                $class = $this->qualifyClass($this->getNameInput());
+                $result = spin(
+                    message: 'Generating ' . $class,
+                    callback: function () use ($prefix, $cases) {
+                        $result = parent::handle();
+                        $this->replaceCustomPlaceholders($cases, $prefix);
+
+                        return $result;
+                    }
+                );
             }
         }
 
@@ -124,7 +136,7 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
         return self::SUCCESS;
     }
 
-    protected function makeDirectory($path)
+    protected function makeDirectory($path): string
     {
         if (! $this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
@@ -152,7 +164,6 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
             ->ltrim('\\')
             ->prepend($rootNamespace, '\\')
         ;
-        //        return $rootNamespace . '\Enums\Icons';
     }
 
     protected function getNameInput()

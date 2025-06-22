@@ -8,6 +8,7 @@ use Laravel\Prompts\Progress;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\error;
+use function Laravel\Prompts\info;
 use function Laravel\Prompts\multisearch;
 use function Laravel\Prompts\progress;
 use function Laravel\Prompts\spin;
@@ -159,7 +160,7 @@ class InstallIconSetCommand extends Command
                 message: 'Installing composer packages...',
                 callback: function () use ($successfulPackages) {
                     foreach ($successfulPackages as $item) {
-                        $package  = $item['package'];
+                        $package = $item['package'];
 
                         Process::run(['composer', 'require', $package, '--no-update']);
                     }
@@ -169,14 +170,10 @@ class InstallIconSetCommand extends Command
             );
 
             if ($update->successful()) {
-                info('Installation successful');
-
-                if (confirm('Do you want to generate icon enum classes for your installed packages?')) {
-                    app(GenerateIconEnumClassCommand::class)->handle();
-                }
+                info('Icon packs installed successfully.');
+            } else {
+                error('Installation failed.');
             }
-
-            error('Installation failed.');
         }
     }
 
