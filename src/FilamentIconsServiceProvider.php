@@ -3,6 +3,7 @@
 namespace Guava\FilamentIcons;
 
 use Guava\FilamentIcons\Commands\GenerateIconEnumClassCommand;
+use Guava\FilamentIcons\Commands\InstallIconSetCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -53,6 +54,7 @@ class FilamentIconsServiceProvider extends PackageServiceProvider
     {
         return [
             GenerateIconEnumClassCommand::class,
+            InstallIconSetCommand::class
         ];
     }
 }

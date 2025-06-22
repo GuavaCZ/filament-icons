@@ -1,0 +1,17 @@
+<?php
+namespace DummyNamespace;
+
+use Filament\Support\Contracts\ScalableIcon;
+use Filament\Support\Enums\IconSize;
+
+enum DummyClass: string implements ScalableIcon
+{
+DummyCases
+
+    public function getIconForSize(IconSize $size): string
+    {
+        return match ($size) {
+            default => "DummyPrefix-$this->value",
+        };
+    }
+}
