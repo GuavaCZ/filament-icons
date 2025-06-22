@@ -1,4 +1,5 @@
-# This package allows you to generate enum classes for ANY blade icon set you have installed, making working with them a breeze!
+![calendar Banner](https://github.com/GuavaCZ/filament-icons/raw/main/docs/images/banner.jpg)
+# Install and use any icon pack in your filament panel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/guava/filament-icons.svg?style=flat-square)](https://packagist.org/packages/guava/filament-icons)
 
@@ -9,7 +10,11 @@
 
 This package allows you to generate enum classes for ANY blade icon set you have installed, making working with them a breeze!
 
+In addition, you can easily install icon packs using an artisan command.
 
+<video width="320" height="240" controls>
+  <source src="https://github.com/GuavaCZ/filament-icons/raw/main/docs/images/demo_preview.mp4" type="video/mp4">
+</video>
 
 https://github.com/user-attachments/assets/84e68315-0096-4df7-8ab0-ae07bcafb6d5
 
