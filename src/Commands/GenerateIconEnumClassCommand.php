@@ -5,7 +5,6 @@ namespace Guava\FilamentIcons\Commands;
 use BladeUI\Icons\Factory as IconFactory;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Stringable;
 use SplFileInfo;
