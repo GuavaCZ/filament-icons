@@ -27,9 +27,7 @@ class FilamentIconsServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void {}
 
-    public function packageBooted(): void
-    {
-    }
+    public function packageBooted(): void {}
 
     /**
      * @return array<class-string>
@@ -38,7 +36,7 @@ class FilamentIconsServiceProvider extends PackageServiceProvider
     {
         return [
             GenerateIconEnumClassCommand::class,
-            InstallIconSetCommand::class
+            InstallIconSetCommand::class,
         ];
     }
 }
