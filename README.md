@@ -9,6 +9,12 @@
 
 This package allows you to generate enum classes for ANY blade icon set you have installed, making working with them a breeze!
 
+
+
+https://github.com/user-attachments/assets/84e68315-0096-4df7-8ab0-ae07bcafb6d5
+
+
+
 ## Installation
 
 You can install the package via composer:
