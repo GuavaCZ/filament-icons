@@ -18,7 +18,8 @@ In addition, you can easily install icon packs using an artisan command.
 
 https://github.com/user-attachments/assets/84e68315-0096-4df7-8ab0-ae07bcafb6d5
 
-
+## Version compatibility
+This plugin is compatible with both filament 4.x and 5.x.
 
 ## Installation
 
