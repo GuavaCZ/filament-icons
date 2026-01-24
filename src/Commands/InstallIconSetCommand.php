@@ -170,7 +170,7 @@ class InstallIconSetCommand extends Command
             );
 
             if ($update->successful()) {
-                info('Icon packs installed successfully.');
+                info('Icon packs installed successfully! Don\'t forget to run [php artisan icons:cache] to prevent performance issues.');
             } else {
                 error('Installation failed.');
             }
