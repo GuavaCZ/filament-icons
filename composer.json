@@ -1,17 +1,18 @@
 {
     "name": "guava/filament-icons",
     "description": "This package allows you to generate enum classes for ANY blade icon set you have installed, making working with them a breeze!",
+    "type": "library",
+    "license": "MIT",
     "keywords": [
         "Guava",
         "laravel",
         "filament-icons"
     ],
-    "homepage": "https://github.com/guava/filament-icons",
+    "homepage": "https://github.com/GuavaCZ/filament-icons",
     "support": {
-        "issues": "https://github.com/guava/filament-icons/issues",
-        "source": "https://github.com/guava/filament-icons"
+        "issues": "https://github.com/GuavaCZ/filament-icons/issues",
+        "source": "https://github.com/GuavaCZ/filament-icons"
     },
-    "license": "MIT",
     "authors": [
         {
             "name": "Lukas Frey",
@@ -22,17 +23,20 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "^4.0|^5.0",
+        "illuminate/contracts": "^12.0|^13.0",
         "laravel/prompts": "^0.3.5",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
+        "brunocfalcao/blade-feather-icons": "^6.0",
+        "larastan/larastan": "^3.0",
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^8",
-        "nunomaduro/larastan": "^3.0",
-        "orchestra/testbench": "^10.0",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
+        "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^10.0|^11.0",
+        "pestphp/pest": "^3.8|^4.4",
+        "pestphp/pest-plugin": "^3.0|^4.0",
+        "pestphp/pest-plugin-arch": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.2|^4.1",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0"
@@ -45,13 +49,27 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Guava\\FilamentIcons\\Tests\\": "tests/"
+            "Guava\\FilamentIcons\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
         }
     },
     "scripts": {
-        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "post-autoload-dump": "@composer run prepare",
+        "clear": "@php vendor/bin/testbench package:purge-filament-icons --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": [
+            "@composer run prepare",
+            "@php vendor/bin/testbench workbench:build --ansi"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer run build",
+            "@php vendor/bin/testbench serve"
+        ],
         "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
+        "test": "vendor/bin/pest --no-coverage",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
     },
@@ -66,10 +84,7 @@
         "laravel": {
             "providers": [
                 "Guava\\FilamentIcons\\FilamentIconsServiceProvider"
-            ],
-            "aliases": {
-                "FilamentIcons": "Guava\\FilamentIcons\\Facades\\FilamentIcons"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

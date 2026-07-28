@@ -5,10 +5,13 @@ parameters:
     level: 4
     paths:
         - src
-        - config
-        - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
-    checkMissingIterableValueType: false
 
+    ignoreErrors:
+        # GeneratorCommand's PHPDoc says bool|null, but Command::execute() casts the
+        # return value to an int exit code, and the command uses 1 to signal failure.
+        -
+            identifier: method.childReturnType
+            path: src/Commands/GenerateIconEnumClassCommand.php
