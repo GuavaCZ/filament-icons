@@ -116,12 +116,12 @@ class InstallIconSetCommand extends Command
             label: 'Select the icon packs that you would like to install',
             options: static fn (string $value) => strlen($value) > 0
                 ?
-                collect(static::PACKAGES)
+                collect(self::PACKAGES)
                     ->filter(
                         fn (string $name, string $package) => str_contains($package, $value) || str_contains($name, $value)
                     )
                     ->all()
-                : static::PACKAGES,
+                : self::PACKAGES,
             required: true,
             scroll: 3
         );

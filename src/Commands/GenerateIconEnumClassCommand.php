@@ -90,7 +90,6 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
 
             $icons = collect();
             foreach ($paths as $path) {
-                /** @var SplFileInfo $file */
                 $names = collect(File::allFiles($path))
                     ->map(
                         static fn (SplFileInfo $file): string => str($file->getFilename())->beforeLast('.')
