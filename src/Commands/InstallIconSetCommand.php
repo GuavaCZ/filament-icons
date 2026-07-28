@@ -108,7 +108,7 @@ class InstallIconSetCommand extends Command
         'icons:install',
     ];
 
-    public $description = 'My command';
+    public $description = 'Pick blade icon packs from a list and install them via composer';
 
     public function handle(): void
     {

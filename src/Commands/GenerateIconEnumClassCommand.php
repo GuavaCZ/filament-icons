@@ -26,7 +26,7 @@ class GenerateIconEnumClassCommand extends GeneratorCommand
         'icons:generate',
     ];
 
-    public $description = 'My command';
+    public $description = 'Generate an enum class for any installed blade icon set';
 
     protected array $generationData = [];
 
