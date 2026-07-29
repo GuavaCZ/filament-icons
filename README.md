@@ -11,7 +11,7 @@ In addition, it ships a command that lets you pick blade icon packs from a searc
 
 ## Documentation
 
-The full documentation is available at [guava.cz](https://guava.cz/developers/packages/filament-icons).
+The full documentation is available at [guava.cz](https://guava.cz/developers/packages/filament-icons?ref=github&utm_campaign=icons).
 
 ## Version compatibility
 
@@ -51,7 +51,7 @@ IconColumn::make('status')
     ->icon(Feather::Activity);
 ```
 
-Everything else is covered in the [documentation](https://guava.cz/developers/packages/filament-icons).
+Everything else is covered in the [documentation](https://guava.cz/developers/packages/filament-icons?ref=github&utm_campaign=icons).
 
 ## Testing
 
